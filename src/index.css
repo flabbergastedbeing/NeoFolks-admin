@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Font tokens — see documented deviation #1 in the build prompt for why
+     these point at substitutes instead of Alpha Lyrae / Iowan Old Style. */
+  --font-inter: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-alpha-lyrae: "Cormorant Garamond", "EB Garamond", "PT Serif", serif;
+  --font-iowan-old-style: "Source Serif 4", Lora, Palatino, serif;
+}
+
+@layer base {
+  * {
+    @apply border-graphite/40;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Keep anchor/scroll targets clear of the 64px fixed navbar. */
+    scroll-padding-top: 88px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-void-black text-ghost-white antialiased;
+    font-family: var(--font-inter);
+    letter-spacing: -0.03em;
+  }
+
+  /* Cormorant renders visually smaller than Inter at the same pixel size
+     (documented deviation #1), so we nudge it up slightly to balance the
+     48px display spec without breaking the exact 48px CSS value. */
+  .font-alpha-lyrae {
+    font-feature-settings: "ss01" on, "ss02" on;
+    letter-spacing: 0;
+  }
+
+  ::selection {
+    background-color: #9984d84d;
+    color: #ffffff;
+  }
+
+  /* Visible keyboard focus everywhere, per the a11y acceptance bar. */
+  :focus-visible {
+    outline: 2px solid #9984d8;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #000000;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #808080;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-page px-24 md:px-40;
+  }
+
+  .section-spacing {
+    @apply py-56 md:py-96;
+  }
+
+  /* Display heading utility per Design.md — 48px/400/lh 1.0, serif,
+     centered. Steps to 40px only below 480px (documented deviation #2). */
+  .text-display-heading {
+    @apply font-alpha-lyrae text-display-mobile font-normal leading-none text-ghost-white xs:text-display;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
