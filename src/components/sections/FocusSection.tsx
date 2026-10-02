@@ -1,6 +1,6 @@
 import { orbitalTech } from "@/data/tech";
 import { SectionHeader } from "@/components/common/SectionHeader";
-import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
+import SaturnOrbit from "@/components/ui/saturn-orbit";
 
 export function FocusSection() {
   return (
@@ -27,10 +27,7 @@ export function FocusSection() {
           </div>
 
           <div>
-            <RadialOrbitalTimeline
-              timelineData={orbitalTech}
-              className="mx-auto w-[85%] max-w-[476px]"
-            />
+            <SaturnOrbit items={orbitalTech} className="mx-auto" />
           </div>
         </div>
       </div>
